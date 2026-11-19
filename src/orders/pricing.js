@@ -14,6 +14,9 @@ export function priceOrder(state, lines, code) {
   requirePence(grossSubtotal, 'Subtotal');
   let discount = findDiscount(state, code);
   let saving = discountAmount(paidItemsSubtotal, discount);
+  // Keep the legacy floor: old imported discount records could exceed the basket.
+  // See docs/issues/17.md before removing it.
+  if (saving > paidItemsSubtotal) saving = paidItemsSubtotal;
   return {
     grossSubtotal: grossSubtotal,
     paidItemsSubtotal: paidItemsSubtotal,

@@ -25,6 +25,13 @@ test('a complimentary book is not part of the discount base', () => {
   assert.equal(price.discount, 150);
 });
 
+test('a migrated oversized discount cannot make the total negative', () => {
+  const state = freshShop();
+  state.discountCodes[2].active = true;
+  const lines = orderLines(state, [{ bookId: 'book-1', quantity: 1 }]);
+  assert.equal(priceOrder(state, lines, 'OLD120').total, 0);
+});
+
 test('only one code is accepted', () => {
   assert.throws(() => chooseCode({ code: ['READ20', 'WELCOME10'] }), /one discount/);
 });
