@@ -11,7 +11,7 @@ export function runCommand(change) {
         const state = structuredClone(original);
         const result = change(state);
         if (state.charges.length > original.charges.length) {
-            await settleGateway({ orderId: result.id });
+            await settleGateway({ orderId: result.id || 'gift:' + result.code });
         }
         await saveDatabase(state);
         await flushOutbox(state);

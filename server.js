@@ -12,6 +12,7 @@ import { normaliseCustomer } from './src/customers/cleanup.js';
 import { findCustomer } from './src/customers/records.js';
 import { weeklySales } from './src/reports/weekly.js';
 import { salesCsv } from './src/reports/csv.js';
+import { buyGiftCard } from './src/payments/gift-cards.js';
 
 const assets = {
     '/admin/': ['index.html', 'text/html; charset=utf-8'],
@@ -56,6 +57,8 @@ export function makeServer() {
                 let result;
                 if (url.pathname === '/api/orders') {
                     result = await runCommand(state => createOrder(state, input));
+        } else if (url.pathname === '/api/gift-cards') {
+          result = await runCommand(state => buyGiftCard(state, input));
                 } else if (url.pathname === '/api/refunds') {
                     result = await runCommand(state => createRefund(state, input));
                 } else if (url.pathname === '/api/stock/adjust') {

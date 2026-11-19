@@ -19,9 +19,20 @@
         <label>Book <select name="bookId" id="books"></select></label>
         <label>Copies <input name="quantity" type="number" min="1" max="100" value="1" required></label>
         <label>Discount code <input name="code" placeholder="READ20"></label>
+        <label>Gift card code <input name="giftCode" placeholder="Optional"></label>
+        <label>Gift contribution (pence) <input name="giftAmount" type="number" min="0" placeholder="Available balance"></label>
         <button>Place order</button>
       </form>
       <p id="message" role="status" aria-live="polite"></p>
+    </section>
+    <section><h2>Buy a gift card</h2>
+      <form id="gift-form">
+        <label>Customer ID <input name="customerId" value="customer-1" required></label>
+        <label>New code <input name="code" placeholder="GIFT-FOR-SAM" required></label>
+        <label>Value (pence) <input name="value" type="number" min="1" value="1000" required></label>
+        <button>Buy through the local gateway</button>
+      </form><p id="gift-message" role="status" aria-live="polite"></p>
+      <ul id="gift-balances"></ul>
     </section>
     <section aria-labelledby="orders-title"><h2 id="orders-title">Orders</h2>
       <div class="table-wrap"><table><thead><tr><th>Order</th><th>Paid</th><th>Retuned</th><th>Status</th><th>Books</th></tr></thead>
