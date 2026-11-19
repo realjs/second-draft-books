@@ -3,8 +3,9 @@
 ## Gift cards
 
 **Grace:** Customers should buy a gift card and spend it over several visits.
-For this iteration, staff issue cards into the bundled records; online purchase
-is a separate request. A card can pay part of an order; the rest goes to the
+The staff desk should accept the purchase through the local gateway, issue a
+unique code and queue a confirmation. Reject a duplicate code before charging.
+A card can pay part of an order; the rest goes to the
 ordinary payment gateway. A zero balance means no further spend is allowed.
 
 Refunds go back to the original tender: the gift-card share to the gift card,
