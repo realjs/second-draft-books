@@ -12,3 +12,15 @@ test('a gift card can be spent over two visits', () => {
     assert.equal(second.cardPaid, 250);
     assert.equal(state.giftCards[0].balance, 0);
 });
+
+test('an exhausted card declines another spend', () => {
+    const state = freshShop();
+    state.giftCards[0].balance = 0;
+    assert.throws(() => createOrder(state, basket({ giftCode: 'GIFT-1000', giftAmount: 750 })), /exhausted/);
+});
+
+test('a spend above the remaining balance is declined', () => {
+    const state = freshShop();
+    state.giftCards[0].balance = 200;
+    assert.throws(() => createOrder(state, basket({ giftCode: 'GIFT-1000', giftAmount: 750 })), /balance/);
+});
