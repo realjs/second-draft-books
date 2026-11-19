@@ -1,0 +1,16 @@
+{
+  "name": "second-draft-books",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A fictional bookshop backend for learning to read and verify code",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test",
+    "seed": "node scripts/seed.js",
+    "report": "node scripts/report.js"
+  }
+}

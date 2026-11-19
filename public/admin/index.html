@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Second Draft · staff desk</title>
+  <link rel="stylesheet" href="/admin/style.css">
+  <script type="module" src="/admin/app.js"></script>
+</head>
+<body>
+  <header><p class="eyebrow">The Second Draft</p><h1>The staff desk</h1>
+    <p>A bookshop, a few shelves, and the day's orders.</p></header>
+  <main>
+    <p class="notice">Practice shop · fictional customers · local payments · emails stay in outbox/</p>
+    <section aria-labelledby="place-title">
+      <h2 id="place-title">Place an order</h2>
+      <form id="order-form">
+        <label>Customer <select name="customerId" id="customers"></select></label>
+        <label>Book <select name="bookId" id="books"></select></label>
+        <label>Copies <input name="quantity" type="number" min="1" max="100" value="1" required></label>
+        <label>Discount code <input name="code" placeholder="READ20"></label>
+        <button>Place order</button>
+      </form>
+      <p id="message" role="status" aria-live="polite"></p>
+    </section>
+    <section aria-labelledby="orders-title"><h2 id="orders-title">Orders</h2>
+      <div class="table-wrap"><table><thead><tr><th>Order</th><th>Paid</th><th>Retuned</th><th>Status</th><th>Books</th></tr></thead>
+        <tbody id="orders"></tbody></table></div>
+    </section>
+    <section><h2>Return a book</h2>
+      <form id="refund-form">
+        <label>Order ID <input name="orderId" value="order-1" required></label>
+        <label>Book ID <input name="bookId" value="book-1" required></label>
+        <label>Copies <input name="quantity" type="number" value="1" min="1" required></label>
+        <button>Record return</button>
+      </form>
+      <p id="refund-message" role="status" aria-live="polite"></p>
+    </section>
+    <section><h2>Shelf count</h2><p>Use signed adjustments after counting a shelf.</p>
+      <form id="stock-form">
+        <label>Book ID <input name="bookId" value="book-1" required></label>
+        <label>Adjustment <input name="delta" type="number" value="1" required></label>
+        <button>Save count adjustment</button>
+      </form><p id="stock-message" role="status" aria-live="polite"></p>
+      <ul id="stock"></ul>
+    </section>
+    <section><h2>Weekly report</h2><a href="/api/reports/sales">Download the sales CSV</a></section>
+    <section><h2>Outbox</h2><ul id="emails"></ul></section>
+  </main>
+  <footer>Shelf inspection by Moth. Please do not move the sunny chair.</footer>
+</body>
+</html>

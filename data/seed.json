@@ -1,0 +1,39 @@
+{
+  "books": [
+    { "id": "book-1", "title": "Small Maps", "price": 750 },
+    { "id": "book-2", "title": "The Long Way Home", "price": 2250 },
+    { "id": "book-3", "title": "A Bookshop Window", "price": 1000 },
+    { "id": "book-4", "title": "Night Trains", "price": 1250 }
+  ],
+  "customers": [
+    { "id": "customer-1", "name": "Nadia Patel", "email": "nadia@example.invalid" },
+    { "id": "customer-2", "name": "Oliver Reed", "email": "oliver@example.invalid" },
+    { "id": "customer-3", "name": "Mei Tan", "email": "mei@example.invalid" }
+  ],
+  "staff": [{ "id": "moth", "name": "Moth", "role": "shelf inspector" }],
+  "discountCodes": [
+    { "code": "READ20", "percent": 20, "active": true },
+    { "code": "WELCOME10", "percent": 10, "active": true },
+    { "code": "OLD120", "percent": 120, "active": false }
+  ],
+  "stock": [
+    { "bookId": "book-1", "onHand": 18, "reserved": 0 },
+    { "bookId": "book-2", "onHand": 11, "reserved": 0 },
+    { "bookId": "book-3", "onHand": 8, "reserved": 0 },
+    { "bookId": "book-4", "onHand": 15, "reserved": 0 }
+  ],
+  "orders": [{
+    "id": "order-1", "customerId": "customer-1", "date": "2026-11-16",
+    "lines": [
+      { "bookId": "book-1", "title": "Small Maps", "quantity": 1, "unitPrice": 750, "complimentary": false },
+      { "bookId": "book-2", "title": "The Long Way Home", "quantity": 1, "unitPrice": 2250, "complimentary": false },
+      { "bookId": "book-3", "title": "A Bookshop Window", "quantity": 1, "unitPrice": 1000, "complimentary": true }
+    ],
+    "grossSubtotal": 4000, "paidItemsSubtotal": 3000, "discount": 600,
+    "code": "READ20", "total": 2400, "refunded": 0, "status": "paid",
+    "chargeId": "charge-1", "cardPaid": 2400, "giftPaid": 0
+  }],
+  "charges": [{ "id": "charge-1", "key": "order:order-1", "amount": 2400 }],
+  "gatewayRefunds": [], "refunds": [], "reservations": [], "emails": [], "logs": [],
+  "giftCards": [{ "code": "GIFT-1000", "originalValue": 1000, "balance": 1000 }]
+}
