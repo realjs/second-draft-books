@@ -17,6 +17,14 @@ export function createRefund(state, input) {
     let value = 0;
     for (let returned of returns) value += returned.value;
     let amount = refundValue(order, value);
+    let remainingPaidValue = 0;
+    for (let line of order.lines) {
+        if (!line.complimentary) {
+            remainingPaidValue += line.unitPrice * (line.quantity - (line.returned || 0));
+        }
+    }
+    // The last paid book receives any penny left by earlier rounding.
+    if (value === remainingPaidValue) amount = order.total - order.refunded;
     // Independent rounding on each return must never send back more than was paid.
     if (amount > order.total - order.refunded) amount = order.total - order.refunded;
     let refund = { id: nextId(state.refunds, 'refund'), orderId: order.id,
