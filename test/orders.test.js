@@ -33,9 +33,9 @@ test('orders need an existing customer and available stock', () => {
     })), /stock/);
 });
 
-test('the current shop requires the card gateway for the full total', () => {
+test('a gift payment reduces the ordinary gateway charge', () => {
     const state = freshShop();
     const order = { id: 'order-2', total: 750 };
-    payOrder(state, order);
-    assert.equal(state.charges.at(-1).amount, 750);
+    payOrder(state, order, { giftCode: 'GIFT-1000', giftAmount: 500 });
+    assert.equal(state.charges.at(-1).amount, 250);
 });
