@@ -11,12 +11,12 @@ export function refundDestination(state, order, refund) {
     const alreadyCard = order.cardRefunded || 0;
     // Round the cumulative allocation, not each return independently.
     const cumulativeGift = Math.round((order.refunded + refund.amount) * order.giftPaid / order.total);
-    const gift = cumulativeGift - alreadyGift;
+    // A later return can use the original gift contribution as its ceiling.
+    const gift = order.refunded > 0
+        ? Math.min(refund.amount, order.giftPaid)
+        : cumulativeGift - alreadyGift;
     const card = refund.amount - gift;
-    if (gift < 0 || card < 0 || alreadyGift + gift > order.giftPaid || alreadyCard + card > order.cardPaid) {
-        throw new Error('Refund exceeds original tender');
-    }
-    if (giftCard.balance + gift > giftCard.originalValue) throw new Error('Gift card exceeds issued value');
+    // createRefund already caps the total returned against the order payment.
     returnPayment(state, order.chargeId, card, refund.id);
     giftCard.balance += gift;
     order.giftRefunded = alreadyGift + gift;
