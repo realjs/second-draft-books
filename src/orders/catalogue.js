@@ -7,6 +7,7 @@ export function findBook(state, id) {
 
 export function orderLines(state, items) {
     if (!Array.isArray(items) || items.length === 0) throw new Error('Choose a book');
+    if (items.length > 100) throw new Error('A basket can have at most 100 book lines');
     let lines = [];
     let seen = [];
     for (let item of items) {
