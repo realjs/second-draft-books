@@ -6,7 +6,7 @@ import { outboxRoot, flushOutbox } from '../src/storage/outbox.js';
 const state = JSON.parse(await readFile(new URL('../data/seed.json', import.meta.url), 'utf8'));
 await mkdir(outboxRoot(), { recursive: true });
 for (const name of await readdir(outboxRoot())) {
-  if (/^email-\d+\.json$/.test(name)) await unlink(resolve(outboxRoot(), name));
+    if (/^email-\d+\.json$/.test(name)) await unlink(resolve(outboxRoot(), name));
 }
 await saveDatabase(state);
 await flushOutbox(state);

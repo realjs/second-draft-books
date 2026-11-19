@@ -2,10 +2,10 @@
 const allowed = ['orderId', 'customerId', 'refundId', 'amount', 'attempt'];
 
 export function eventLog(state, event, fields) {
-  let entry = { event: event };
-  for (let key of allowed) {
-    if (fields[key] !== undefined) entry[key] = fields[key];
-  }
-  state.logs.push(entry);
-  return entry;
+    let entry = { event: event };
+    for (let key of allowed) {
+        if (fields[key] !== undefined) entry[key] = fields[key];
+    }
+    state.logs.push(entry);
+    return entry;
 }
