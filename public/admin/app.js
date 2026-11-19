@@ -26,6 +26,9 @@ async function refresh() {
         option.value = book.id;
     }
     const orders = document.querySelector('#orders');
+  const cards = document.querySelector('#gift-balances');
+  cards.replaceChildren();
+  for (const card of shop.giftCards) appendText(cards, 'li', card.code + ': ' + pounds(card.balance));
     orders.replaceChildren();
     for (const order of shop.orders) {
         const row = document.createElement('tr');
@@ -59,7 +62,7 @@ function handleForm(id, endpoint, transform, messageId) {
                 headers: { 'content-type': 'application/json' }, body: JSON.stringify(transform(values)) });
             const result = await response.json();
             if (!response.ok) throw new Error(result.error);
-            message.textContent = 'Saved ' + (result.id || result.bookId) +
+      message.textContent = 'Saved ' + (result.id || result.bookId || result.code) +
                 (result.amount !== undefined ? ' · ' + pounds(result.amount) : '');
             await refresh();
         } catch (error) {
@@ -72,6 +75,8 @@ function handleForm(id, endpoint, transform, messageId) {
 
 handleForm('#order-form', '/api/orders', input => ({
     customerId: input.customerId, code: input.code,
+  giftCode: input.giftCode,
+  giftAmount: input.giftAmount === '' ? undefined : Number(input.giftAmount),
     items: [{ bookId: input.bookId, quantity: Number(input.quantity) }]
 }), '#message');
 handleForm('#refund-form', '/api/refunds', input => ({
@@ -80,4 +85,7 @@ handleForm('#refund-form', '/api/refunds', input => ({
 handleForm('#stock-form', '/api/stock/adjust', input => ({
     bookId: input.bookId, delta: Number(input.delta)
 }), '#stock-message');
+handleForm('#gift-form', '/api/gift-cards', input => ({
+  customerId: input.customerId, code: input.code, value: Number(input.value)
+}), '#gift-message');
 refresh().catch(error => { document.querySelector('#message').textContent = error.message; });
