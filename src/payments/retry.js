@@ -4,7 +4,7 @@ export function chargeWithRetry(state, order, options = {}) {
     let key = 'order:' + order.id;
     let response = capture(state, order.total, key, options.loseFirstResponse === true);
     if (response.status === 'unknown') {
-        response = capture(state, order.total, key, false);
+        response = capture(state, order.total, key + ':retry', false);
     }
     return response.charge;
 }
