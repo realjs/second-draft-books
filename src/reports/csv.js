@@ -3,10 +3,10 @@ export function formatPrice(pence) {
 }
 
 export function salesCsv(rows) {
-    let output = 'order_id,date,paid_gbp,refunded_gbp,net_gbp\n';
+    let output = 'order_id,date,paid_gbp,refunded_gbp,net_gbp,books\n';
     for (let row of rows) {
         output += row.orderId + ',' + row.date + ',' + formatPrice(row.paid) + ','
-            + formatPrice(row.refunded) + ',' + formatPrice(row.net) + '\n';
+            + formatPrice(row.refunded) + ',' + formatPrice(row.net) + ',' + row.books + '\n';
     }
     return output;
 }
